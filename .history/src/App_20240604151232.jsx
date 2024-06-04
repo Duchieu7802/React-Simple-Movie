@@ -20,8 +20,8 @@ function App() {
 							</Fragment>
 						}
 					></Route>
-					<Route path="/movies" element={<MoviePage></MoviePage>}></Route>
 				</Route>
+				<Route path="/movies" element={<MoviePage></MoviePage>}></Route>
 			</Routes>
 		</Fragment>
 	);

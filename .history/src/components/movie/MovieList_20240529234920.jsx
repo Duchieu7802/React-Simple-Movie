@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import "swiper/css";
 import MovieCard from "./MovieCard";
 import useSWR from "swr";
 import { fetcher } from "../../Config";

@@ -5,7 +5,6 @@ import Banner from "./components/banner/Banner";
 import { Route, Routes } from "react-router-dom";
 import Main from "./components/layout/Main";
 import Homepage from "./pages/Homepage";
-import MoviePage from "./pages/MoviePage";
 function App() {
 	return (
 		<Fragment>
@@ -20,7 +19,6 @@ function App() {
 							</Fragment>
 						}
 					></Route>
-					<Route path="/movies" element={<MoviePage></MoviePage>}></Route>
 				</Route>
 			</Routes>
 		</Fragment>
