@@ -8,7 +8,6 @@ const Banner = () => {
 		fetcher
 	);
 	const banner = data?.results;
-	console.log("🚀 ~ Banner ~ banner:", banner);
 
 	return (
 		<section className=" banner h-[800px] banner page-container capitalize pb-10">
@@ -25,27 +24,29 @@ const Banner = () => {
 	);
 };
 function BannerItem({ item }) {
-	const {
-		original_title,
-		vote_average,
-		backdrop_path,
-		release_date,
-		id,
-		overview,
-	} = item;
+	const { original_title, vote_average, backdrop_path, release_date, id } =
+		item;
 	const navigate = useNavigate();
 	return (
 		<div className="w-full h-full rounded-lg relative ">
 			<div className="overlay absolute inset-0 bg-gradient-to-t from-[rgba(0,0,0,0.5)] to-[rgba(0,0,0,0.5)] rounded-lg"></div>
 			<img
-				src={`https://image.tmdb.org/t/p/original/${backdrop_path}`}
+				src={`https://image.tmdb.org/t/p/w500/${backdrop_path}`}
 				alt=""
 				className="w-full h-full object-cover rounded-lg"
 			/>
 			<div className="absolute left-10 bottom-5 text-white">
 				<h2 className="font-bold mb-5 text-3xl">{original_title}</h2>
 				<div className="flex items-center gap-x-2 mb-5">
-					<div className="max-w-[600px] text-white ">{overview}</div>
+					<span className="px-5 py-2 border border-gray-500 rounded-lg">
+						Action
+					</span>
+					<span className="px-5 py-2 border border-gray-500 rounded-lg">
+						Adventure
+					</span>
+					<span className="px-5 py-2 border border-gray-500 rounded-lg">
+						Drama
+					</span>
 				</div>
 				<button
 					onClick={() => navigate(`/movie/${id}`)}

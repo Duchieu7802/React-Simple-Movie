@@ -1,10 +1,10 @@
 import useSWR from "swr";
-import { API_KEY, fetcher } from "../Config";
+import { fetcher } from "../Config";
 import MovieCard from "../components/movie/MovieCard";
 
 const MoviePage = () => {
 	const { data, error, isLoading } = useSWR(
-		`https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}`,
+		`https://api.themoviedb.org/3/movie/upcoming?api_key=84eb2ae36d8416146f44d030412bd242`,
 		fetcher
 	);
 	const movies = data?.results || [];

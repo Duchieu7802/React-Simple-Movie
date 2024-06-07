@@ -9,7 +9,7 @@ const Header = () => {
 				Home
 			</NavLink>
 			<NavLink
-				to="/movies"
+				to="/movie"
 				className={({ isActive }) => (isActive ? "text-primary" : "text-white")}
 			>
 				Movies
