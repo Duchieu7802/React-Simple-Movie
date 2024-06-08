@@ -132,6 +132,9 @@ function MovieSimilar() {
 	return (
 		<>
 			<div className="py-10">
+				<h2 className="text-white capitalize text-3xl font-medium mb-10">
+					Similar Movies
+				</h2>
 				<Swiper grabCursor={"true"} spacebeetween={40} slidesPerView={3}>
 					{results.length > 0 &&
 						results.map((item) => (

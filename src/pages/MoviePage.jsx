@@ -1,12 +1,31 @@
 import useSWR from "swr";
 import { API_KEY, fetcher } from "../Config";
 import MovieCard from "../components/movie/MovieCard";
+import { useEffect, useState } from "react";
+import useDebounce from "../hooks/UseDebounce";
 
 const MoviePage = () => {
-	const { data, error, isLoading } = useSWR(
-		`https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}`,
-		fetcher
+	const [filter, setFilter] = useState(
+		`https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}`
 	);
+
+	const [url, setUrl] = useState("");
+	const queryDebounce = useDebounce(url, 500);
+	const handleChangeQuery = (e) => {
+		setUrl(e.target.value);
+	};
+	useEffect(() => {
+		if (queryDebounce) {
+			setFilter(
+				`https://api.themoviedb.org/3/search/movie?query=${queryDebounce}&api_key=${API_KEY}`
+			);
+		} else
+			setFilter(
+				`https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}`
+			);
+	}, [queryDebounce]);
+	const { data, error, isLoading } = useSWR(filter, fetcher);
+
 	const movies = data?.results || [];
 	return (
 		<div className="py-10 page-container">
@@ -16,6 +35,7 @@ const MoviePage = () => {
 						type="text"
 						className="w-full p-4 bg-slate-800 text-white outline-none"
 						placeholder="Type here to search..."
+						onChange={handleChangeQuery}
 					/>
 				</div>
 				<button className="p-4 bg-primary text-white ">
