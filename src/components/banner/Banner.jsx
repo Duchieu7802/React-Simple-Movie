@@ -8,7 +8,6 @@ const Banner = () => {
 		fetcher
 	);
 	const banner = data?.results;
-	console.log("🚀 ~ Banner ~ banner:", banner);
 
 	return (
 		<section className=" banner h-[800px] banner page-container capitalize pb-10">
