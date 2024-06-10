@@ -1,32 +1,29 @@
 import { useParams } from "react-router-dom";
 import useSWR from "swr";
-import { API_KEY, fetcher } from "../Config";
+import { API_KEY, fetcher, tmdbAPI } from "../Config";
 import "swiper/css";
 import { SwiperSlide, Swiper } from "swiper/react";
 import MovieCard from "../components/movie/MovieCard";
 
 const MovieDetailPage = () => {
 	const { movieID } = useParams();
-	const { data, error } = useSWR(
-		`https://api.themoviedb.org/3/movie/${movieID}?api_key=${API_KEY}`,
-		fetcher
-	);
+	const { data, error } = useSWR(tmdbAPI.getMovieDetail(movieID), fetcher);
 	if (!data) return null;
 	const { backdrop_path, poster_path, genres, overview, title } = data;
 	return (
-		<div className="pb-20">
+		<div className="pb-10">
 			<div className="relative h-[600px] w-full">
 				<div className="absolute inset-0 bg-opacity-70 bg-black"></div>
 				<div
 					className="w-full h-full bg-cover bg-no-repeat"
 					style={{
-						backgroundImage: `url(https://image.tmdb.org/t/p/original/${backdrop_path})`,
+						backgroundImage: `url(${tmdbAPI.imageOriginal(backdrop_path)})`,
 					}}
 				></div>
 			</div>
 			<div className="relative mx-auto w-full h-[400px] max-w-[600px] z-10 -mt-[200px] pb-10">
 				<img
-					src={`https://image.tmdb.org/t/p/original/${poster_path}`}
+					src={`${tmdbAPI.imageOriginal(poster_path)}`}
 					alt=""
 					className="w-full h-full object-cover rounded-lg"
 				/>
@@ -57,10 +54,7 @@ const MovieDetailPage = () => {
 };
 function MovieCast() {
 	const { movieID } = useParams();
-	const { data, error } = useSWR(
-		`https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${API_KEY}`,
-		fetcher
-	);
+	const { data, error } = useSWR(tmdbAPI.getMovieCredit(movieID), fetcher);
 	if (!data || data.cast.length <= 0) return null;
 	const { cast } = data;
 	return (
@@ -71,7 +65,7 @@ function MovieCast() {
 					{cast.slice(0, 4).map((item) => (
 						<div key={item.id} className="cast-item">
 							<img
-								src={`https://image.tmdb.org/t/p/original/${item.profile_path}`}
+								src={tmdbAPI.imageOriginal(item.profile_path)}
 								alt=""
 								className="w-full h-[300px] object-cover rounded-lg mb-3 "
 							/>
@@ -85,10 +79,7 @@ function MovieCast() {
 }
 function MovieVideo() {
 	const { movieID } = useParams();
-	const { data, error } = useSWR(
-		`https://api.themoviedb.org/3/movie/${movieID}/videos?api_key=${API_KEY}`,
-		fetcher
-	);
+	const { data, error } = useSWR(tmdbAPI.getMovieVideo(movieID), fetcher);
 	if (!data || data.length <= 0) return null;
 	const { results } = data;
 	return (
@@ -122,15 +113,12 @@ function MovieVideo() {
 }
 function MovieSimilar() {
 	const { movieID } = useParams();
-	const { data, error } = useSWR(
-		`https://api.themoviedb.org/3/movie/${movieID}/similar?api_key=${API_KEY}`,
-		fetcher
-	);
+	const { data, error } = useSWR(tmdbAPI.getMovieSimilar(movieID), fetcher);
 	if (!data || data.length <= 0) return null;
 	const { results } = data;
 	return (
 		<>
-			<div className="py-10">
+			<div className="">
 				<h2 className="text-white capitalize text-3xl font-medium mb-10">
 					Similar Movies
 				</h2>

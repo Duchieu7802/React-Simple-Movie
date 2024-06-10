@@ -1,38 +1,26 @@
 import useSWR from "swr";
-import { API_KEY, fetcher } from "../Config";
+import { API_KEY, fetcher, tmdbAPI } from "../Config";
 import MovieCard from "../components/movie/MovieCard";
 import { useEffect, useState } from "react";
 import useDebounce from "../hooks/UseDebounce";
 import ReactPaginate from "react-paginate";
 const itemsPerPage = 20;
 const MoviePage = () => {
-	const [filter, setFilter] = useState(
-		`https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}`
-	);
-
+	const [filter, setFilter] = useState(tmdbAPI.getMovieList("upcoming"));
 	const [url, setUrl] = useState("");
 	const queryDebounce = useDebounce(url, 500);
-
 	const [pageCount, setPageCount] = useState(0);
 	const [itemOffset, setItemOffset] = useState(0);
 	const [nextPage, setNextPage] = useState(1);
-
 	const handleChangeQuery = (e) => {
 		setUrl(e.target.value);
 	};
 	useEffect(() => {
 		if (queryDebounce) {
-			setFilter(
-				`https://api.themoviedb.org/3/search/movie?query=${queryDebounce}&api_key=${API_KEY}&page=${nextPage}`
-			);
-		} else
-			setFilter(
-				`https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&page=${nextPage}`
-			);
+			setFilter(tmdbAPI.getMovieSearch("search", queryDebounce, nextPage));
+		} else setFilter(tmdbAPI.getMovieList("upcoming", nextPage));
 	}, [nextPage, queryDebounce]);
-
 	const { data, error, isLoading } = useSWR(filter, fetcher);
-
 	const movies = data?.results || [];
 	useEffect(() => {
 		if (!data || !data.total_results) return;
@@ -77,7 +65,6 @@ const MoviePage = () => {
 						<MovieCard key={item.id} item={item}></MovieCard>
 					))}
 			</div>
-
 			<ReactPaginate
 				breakLabel="..."
 				nextLabel="next >"
@@ -86,10 +73,9 @@ const MoviePage = () => {
 				pageCount={pageCount}
 				previousLabel="< previous"
 				renderOnZeroPageCount={null}
-				className="flex items-center justify-center gap-10"
+				className="flex items-center justify-center gap-10 pagination "
 			/>
 		</div>
 	);
 };
-
 export default MoviePage;

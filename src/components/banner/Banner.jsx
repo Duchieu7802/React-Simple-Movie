@@ -1,10 +1,10 @@
 import useSWR from "swr";
-import { API_KEY, fetcher } from "../../Config";
+import { API_KEY, fetcher, tmdbAPI } from "../../Config";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useNavigate } from "react-router-dom";
 const Banner = () => {
 	const { data, error, isLoading } = useSWR(
-		`https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}`,
+		tmdbAPI.getMovieList("upcoming"),
 		fetcher
 	);
 	const banner = data?.results;
@@ -37,7 +37,7 @@ function BannerItem({ item }) {
 		<div className="w-full h-full rounded-lg relative ">
 			<div className="overlay absolute inset-0 bg-gradient-to-t from-[rgba(0,0,0,0.5)] to-[rgba(0,0,0,0.5)] rounded-lg"></div>
 			<img
-				src={`https://image.tmdb.org/t/p/original/${backdrop_path}`}
+				src={tmdbAPI.imageOriginal(backdrop_path)}
 				alt=""
 				className="w-full h-full object-cover rounded-lg"
 			/>
