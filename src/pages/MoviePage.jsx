@@ -32,17 +32,17 @@ const MoviePage = () => {
 		setNextPage(event.selected + 1);
 	};
 	return (
-		<div className="py-10 page-container">
-			<div className="mb-10 flex ">
-				<div className="flex-1">
+		<div className="py-5 lg:py-10 page-container">
+			<div className="flex mb-5 lg:mb-10 ">
+				<div className="flex-1 ">
 					<input
 						type="text"
-						className="w-full p-4 bg-slate-800 text-white outline-none"
+						className="w-full p-4 text-white outline-none bg-slate-800"
 						placeholder="Type here to search..."
 						onChange={handleChangeQuery}
 					/>
 				</div>
-				<button className="p-4 bg-primary text-white ">
+				<button className="p-4 text-white bg-primary ">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						fill="none"
@@ -59,7 +59,7 @@ const MoviePage = () => {
 					</svg>
 				</button>
 			</div>
-			<div className="grid grid-cols-4 gap-10 mb-10">
+			<div className="grid gap-10 mb-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
 				{movies.length > 0 &&
 					movies.map((item) => (
 						<MovieCard key={item.id} item={item}></MovieCard>

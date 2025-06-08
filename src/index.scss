@@ -4,7 +4,7 @@
 
 @layer base {
 	body {
-		@apply bg-slate-900 font-body px-5 text-white;
+		@apply px-5 text-white bg-slate-900  font-body;
 	}
 }
 @layer components {
@@ -17,5 +17,13 @@
 		.selected {
 			@apply text-primary;
 		}
+	}
+}
+@layer utilities {
+	.textResponsiveTitle {
+		@apply text-base font-bold lg:text-lg;
+	}
+	.textResponsiveContent {
+		@apply text-xs md:text-sm lg:text-base;
 	}
 }

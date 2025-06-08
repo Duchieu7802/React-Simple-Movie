@@ -10,7 +10,7 @@ const Banner = () => {
 	const banner = data?.results;
 
 	return (
-		<section className=" banner h-[800px] banner page-container capitalize pb-10">
+		<section className=" banner max-h-[800px] banner page-container capitalize pb-10">
 			<Swiper grabCursor={true} slidesPerView={"auto"}>
 				{banner &&
 					banner.length > 0 &&
@@ -34,21 +34,25 @@ function BannerItem({ item }) {
 	} = item;
 	const navigate = useNavigate();
 	return (
-		<div className="w-full h-full rounded-lg relative ">
+		<div className="relative w-full h-full rounded-lg ">
 			<div className="overlay absolute inset-0 bg-gradient-to-t from-[rgba(0,0,0,0.5)] to-[rgba(0,0,0,0.5)] rounded-lg"></div>
 			<img
 				src={tmdbAPI.imageOriginal(backdrop_path)}
 				alt=""
-				className="w-full h-full object-cover rounded-lg"
+				className="object-cover w-full h-full rounded-lg"
 			/>
-			<div className="absolute left-10 bottom-5 text-white">
-				<h2 className="font-bold mb-5 text-3xl">{original_title}</h2>
-				<div className="flex items-center gap-x-2 mb-5">
-					<div className="max-w-[600px] text-white ">{overview}</div>
+			<div className="absolute text-white left-10 bottom-5">
+				<h2 className="mb-3 text-base font-bold lg:text-3xl">
+					{original_title}
+				</h2>
+				<div className="flex items-center mb-5 gap-x-2">
+					<div className=" max-w-[600px] pr-5 textResponsiveContent text-white  ">
+						{overview}
+					</div>
 				</div>
 				<button
 					onClick={() => navigate(`/movie/${id}`)}
-					className="py-3 px-6 rounded-lg bg-primary"
+					className="p-2 text-xs rounded-lg lg:p-3 sm:text-sm lg:text-base bg-primary"
 				>
 					Watch Now
 				</button>

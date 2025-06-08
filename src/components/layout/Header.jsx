@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 const Header = () => {
 	return (
-		<header className="header flex py-10 mb-10 justify-center items-center gap-x-5">
+		<header className="flex items-center justify-center py-5 lg:py-10 lg:mb-10 header gap-x-5">
 			<NavLink
 				to="/"
 				className={({ isActive }) => (isActive ? "text-primary" : "text-white")}

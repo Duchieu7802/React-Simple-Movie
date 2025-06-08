@@ -16,11 +16,19 @@ const MovieList = ({ type = "now_playing" }) => {
 
 	return (
 		<div className="movie-list ">
-			<Swiper grabCursor={"true"} spaceBetween={40} slidesPerView={3}>
+			<Swiper
+				grabCursor={"true"}
+				breakpoints={{
+					320: { slidesPerView: 1, spaceBetween: 40 },
+					480: { slidesPerView: 1, spaceBetween: 40 },
+					768: { slidesPerView: 2, spaceBetween: 40 },
+					1024: { slidesPerView: 3, spaceBetween: 40 },
+				}}
+			>
 				{movies &&
 					movies.length > 0 &&
 					movies.map((item) => (
-						<SwiperSlide className="h-auto" key={item.id}>
+						<SwiperSlide key={item.id}>
 							<MovieCard item={item}></MovieCard>
 						</SwiperSlide>
 					))}

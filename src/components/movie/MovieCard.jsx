@@ -6,23 +6,23 @@ const MovieCard = ({ item }) => {
 		item;
 	const navigate = useNavigate();
 	return (
-		<div className="movie-card flex flex-col rounded-lg p-3 bg-slate-800 text-white h-full select-none">
+		<div className="flex flex-col h-full p-3 text-white rounded-lg select-none movie-card bg-slate-800">
 			<img
 				src={tmdbAPI.image500(backdrop_path)}
 				alt=""
 				className="w-full h-[250px] object-cover rounded-lg mb-5"
 			/>
-			<div className="flex flex-col flex-1">
-				<h3 className="capitalize text-lg font-medium mb-3 ">
+			<div className="flex flex-col flex-1 ">
+				<h3 className="mb-3 font-medium capitalize textResponsiveTitle ">
 					{original_title}
 				</h3>
-				<div className="flex items-center justify-between text-sm opacity-50 mb-10">
+				<div className="flex items-center justify-between mb-10 text-sm opacity-50">
 					<span>{new Date(release_date).getFullYear()}</span>
 					<span>{vote_average.toFixed(1)}</span>
 				</div>
 				<button
 					onClick={() => navigate(`/movie/${id}`)}
-					className="capitalize px-5 py-3 bg-primary rounded-lg w-full mt-auto  "
+					className="flex-1 w-full px-5 py-3 mt-auto capitalize rounded-lg bg-primary "
 				>
 					watch now
 				</button>
